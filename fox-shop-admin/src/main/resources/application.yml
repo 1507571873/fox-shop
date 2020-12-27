@@ -1,0 +1,42 @@
+server:
+  port: 9080
+spring:
+  redis:
+    host: 182.92.223.29
+    port: 6379
+    timeout: 10000
+    database: 1
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 1
+
+  datasource:
+    #数据库的连接信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123
+    url: jdbc:mysql://182.92.223.29:3306/fox_shop?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    #在控制太打印sql日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #  关闭驼峰命名法
+    #   map-underscore-to-camel-case: false
+user:
+  dir: D:\FHWork\实训TwoWork\fox-shop-parent
+  jwtset:
+    signature: "tangjiameng"
+    exptime: 120000000
+    alg: "HS256"
+    type: "JWT"
+servlet:
+  multipart:
+    enabled: true #是否启用http上传处理
+    max-request-size: 100MB #最大请求文件的大小
+    max-file-size: 20MB #设置单个文件最大长度
+    file-size-threshold: 20MB #当文件达到多少时进行磁盘写入

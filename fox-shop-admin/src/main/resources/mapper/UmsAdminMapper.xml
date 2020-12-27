@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fh.system.mapper.UmsAdminMapper">
+
+    <select id="queryResourceByAdmin" resultType="com.fh.resource.entity.UmsResource" parameterType="long">
+        SELECT r.id, r.keyword
+        from ums_role_resource_relation rr
+                 LEFT JOIN ums_admin_role_relation ar ON rr.role_id = ar.role_id
+                 LEFT JOIN ums_resource r ON rr.resource_id = r.id
+        WHERE ar.admin_id = #{id}
+          AND r.keyword IS NOT NULL
+        GROUP BY r.keyword
+    </select>
+
+    <select id="queryRoleByAdmin" resultType="com.fh.role.entity.UmsRole" parameterType="long">
+        SELECT r.id, r.keyword
+        FROM ums_admin_role_relation ar
+                 LEFT JOIN ums_role r ON ar.role_id = r.id
+        WHERE ar.admin_id = 3
+          AND r.keyword IS NOT NULL
+        GROUP BY r.keyword
+    </select>
+</mapper>

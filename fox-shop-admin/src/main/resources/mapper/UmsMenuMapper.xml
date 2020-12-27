@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fh.menu.mapper.UmsMenuMapper">
+
+    <select id="queryTreeByName" parameterType="string" resultType="com.fh.menu.entity.UmsMenu">
+        SELECT m.icon, m.title, m.name, m.id, m.parent_id, m.level
+        FROM ums_menu m
+                 LEFT JOIN ums_role_menu_relation rm ON m.id = rm.menu_id
+                 LEFT JOIN ums_admin_role_relation ar ON rm.role_id = ar.role_id
+                 LEFT JOIN ums_admin a ON ar.admin_id = admin_id
+        WHERE a.username = #{userName}
+          AND m.id IS NOT NULL
+        GROUP BY m.title
+    </select>
+</mapper>

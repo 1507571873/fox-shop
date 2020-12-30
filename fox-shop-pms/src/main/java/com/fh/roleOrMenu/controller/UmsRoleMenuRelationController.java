@@ -2,6 +2,7 @@ package com.fh.roleOrMenu.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fh.config.LogsAnnotation;
 import com.fh.roleOrMenu.entity.RoleMenuRelationBo;
 import com.fh.roleOrMenu.entity.UmsRoleMenuRelation;
 import com.fh.roleOrMenu.service.IUmsRoleMenuRelationService;
@@ -42,6 +43,7 @@ public class UmsRoleMenuRelationController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("后台角色菜单关系表 保存")
     public CommonsReturn saveRoleMenuRelation(@RequestBody RoleMenuRelationBo roleMenuRelationBo){
         roleMenuRelationService.remove( new QueryWrapper<UmsRoleMenuRelation>().eq("role_id",roleMenuRelationBo.getRoleId()));
         roleMenuRelationService.saveBatch(roleMenuRelationBo.getRoleOrMenuList());

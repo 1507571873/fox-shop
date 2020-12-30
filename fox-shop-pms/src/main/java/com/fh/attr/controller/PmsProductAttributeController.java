@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fh.attr.entity.PmsProductAttribute;
 import com.fh.attr.service.IPmsProductAttributeService;
+import com.fh.config.LogsAnnotation;
 import com.fh.model.search.AttrSearch;
 import com.fh.utils.CommonsReturn;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,7 @@ public class PmsProductAttributeController {
      * @return CommonsReturn
      */
     @PostMapping
+    @LogsAnnotation("商品属性参数 新增和修改的提交方法")
     public CommonsReturn saveOrUpdateAttributeData(PmsProductAttribute pmsProductAttribute) {
         productAttributeService.saveOrUpdate(pmsProductAttribute);
         return CommonsReturn.success();
@@ -84,6 +86,7 @@ public class PmsProductAttributeController {
      * @return CommonsReturn
      */
     @GetMapping("/ById")
+    @LogsAnnotation("商品属性参数 修改回显的方法 根据唯一标识Id进行查询")
     public CommonsReturn queryProductAttributeById(Integer id) {
         PmsProductAttribute attributeServiceById = productAttributeService.getById(id);
         return CommonsReturn.success(attributeServiceById);

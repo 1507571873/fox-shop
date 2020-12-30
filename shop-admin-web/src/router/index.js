@@ -25,6 +25,11 @@ export default new Router({
                     meta: { title: '品牌管理' }
                 },
                 {
+                    path: '/brandEcharts',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../views/pms/brand/echarts/BrandEcharts.vue'),
+                    meta: { title: '品牌管理' }
+                },
+                {
                     path: '/productCate',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../views/pms/category/Category.vue'),
                     meta: { title: '商品分类' }

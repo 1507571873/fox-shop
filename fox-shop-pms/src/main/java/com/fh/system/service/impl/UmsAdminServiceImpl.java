@@ -132,14 +132,14 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper, UmsAdmin> i
     public String login(String userName, String password) {
         String token = null;
         try {
-            //清理上次登录的用户信息
-            clearAdminRedis(userName);
             //调用认证登录方法
             UserDetails userDetails = detailsService.loadUserByUsername(userName);
             //判断密码是否正确
             if(!passwordEncoder.matches(password,userDetails.getPassword())){
                 throw new BadCredentialsException("用户密码不正确");
             }
+            //清理上次登录的用户信息
+            clearAdminRedis(userName);
             UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
             //把authenticationToken放到spring上下文里 让下边的方法也可以获取到authenticationToken
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

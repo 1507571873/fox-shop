@@ -9,6 +9,7 @@ import com.fh.utils.CommonsReturn;
 import com.fh.utils.LoginJwtUtils;
 import com.fh.utils.MD5Util;
 import com.fh.utils.ReturnCode;
+import com.fh.websocket.WebSocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -35,8 +37,10 @@ public class LoginController {
     @Resource
     private HttpServletRequest request;
 
+    @Resource
+    private WebSocketServer webSocketServer;
     @PostMapping
-    public CommonsReturn doLogin(@RequestParam("userName") String userName, @RequestParam("password") String password){
+    public CommonsReturn doLogin(@RequestParam("userName") String userName, @RequestParam("password") String password) throws IOException {
         //判断用户名 密码是否为空
         if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
             return CommonsReturn.error(ReturnCode.USERNAME_PASSWORD_NULL);
@@ -46,6 +50,8 @@ public class LoginController {
             //用户名 或密码错误
             return CommonsReturn.error(ReturnCode.LOGIN_NAME_PASSWORD_ERROR);
         }
+        //调用判断用户是否在别的设备登录
+        webSocketServer.checkCurrUserLogin(userName);
         /*//根据用户名查询用户信息
         UmsAdmin user = userService.getOne(new QueryWrapper<UmsAdmin>().eq("username", userName));
         //判断用户是否为空

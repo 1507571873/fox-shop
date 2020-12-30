@@ -3,6 +3,7 @@ package com.fh.menu.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fh.config.LogsAnnotation;
 import com.fh.menu.entity.UmsMenu;
 import com.fh.menu.entity.UmsMenuBo;
 import com.fh.menu.service.IUmsMenuService;
@@ -77,6 +78,7 @@ public class UmsMenuController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("后台菜单表 新增和修改")
     public CommonsReturn saveOrUpdate(UmsMenu umsMenu) {
         if (umsMenu.getId() == null) {
             umsMenu.setCreateTime(new Date());
@@ -97,6 +99,7 @@ public class UmsMenuController {
      * @return
      */
     @GetMapping("/ById")
+    @LogsAnnotation("后台菜单表 回显")
     public CommonsReturn queryMenuById(Integer id) {
         UmsMenu menu = menuService.getById(id);
         return CommonsReturn.success(menu);
@@ -107,6 +110,7 @@ public class UmsMenuController {
      * @return CommonsReturn
      */
     @GetMapping("/tree")
+    @LogsAnnotation("后台菜单表 菜单树")
     public CommonsReturn queryTreeMenu(){
         List<Map<String,Object>>list=menuService.queryTreeMenu();
         return CommonsReturn.success(list);
@@ -117,6 +121,7 @@ public class UmsMenuController {
      * @return CommonsReturn
      */
     @GetMapping("/TreeByName")
+    @LogsAnnotation("后台菜单表 根据用户id查询动态菜单树")
     public CommonsReturn queryTreeByName(){
         String header = request.getHeader("Authorization-token");
         String userName = securityJwtUtils.getUserName(header);

@@ -4,6 +4,7 @@ package com.fh.system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fh.config.LogsAnnotation;
 import com.fh.system.entity.UmsAdmin;
 import com.fh.system.service.IUmsAdminService;
 import com.fh.utils.CommonsReturn;
@@ -49,6 +50,7 @@ public class UmsAdminController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("后台用户表 新增or修改")
     public CommonsReturn saveOrUpdate(UmsAdmin umsAdmin){
         if (umsAdmin.getId()==null){
             umsAdmin.setPassword(new BCryptPasswordEncoder().encode("123456"));
@@ -64,6 +66,7 @@ public class UmsAdminController {
      * @return
      */
     @GetMapping("/ById")
+    @LogsAnnotation("后台用户表 回显根据Id查询")
     public CommonsReturn queryAdminById(Integer id){
         UmsAdmin admin = adminService.getById(id);
         return CommonsReturn.success(admin);

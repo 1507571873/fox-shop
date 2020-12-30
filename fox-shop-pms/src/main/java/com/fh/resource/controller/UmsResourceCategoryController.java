@@ -2,6 +2,7 @@ package com.fh.resource.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fh.config.LogsAnnotation;
 import com.fh.resource.entity.UmsResourceCategory;
 import com.fh.resource.service.IUmsResourceCategoryService;
 import com.fh.utils.CommonsReturn;
@@ -31,6 +32,7 @@ public class UmsResourceCategoryController {
      * @return
      */
     @GetMapping("/All")
+    @LogsAnnotation("资源分类表 查询所有资源分类 用于资源列表页面的条件查询 和表单")
     public CommonsReturn queryResourceCategoryAll(){
         List<UmsResourceCategory> list = resourceCategoryService.list();
         return CommonsReturn.success(list);
@@ -53,6 +55,7 @@ public class UmsResourceCategoryController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("资源分类表 资源分类 的新增和修改")
     public CommonsReturn saveOrUpdate(UmsResourceCategory umsResourceCategory){
         if (umsResourceCategory.getId()==null){
             umsResourceCategory.setCreateTime(new Date());
@@ -67,6 +70,7 @@ public class UmsResourceCategoryController {
      * @return
      */
     @GetMapping("/ById")
+    @LogsAnnotation("资源分类表 回显")
     public CommonsReturn queryResourceCategoryById(Integer id){
         UmsResourceCategory category = resourceCategoryService.getById(id);
         return CommonsReturn.success(category);
@@ -78,6 +82,7 @@ public class UmsResourceCategoryController {
      * @return
      */
     @DeleteMapping
+    @LogsAnnotation("资源分类表 删除")
     public CommonsReturn deleteById(Integer id){
         resourceCategoryService.removeById(id);
         return CommonsReturn.success();

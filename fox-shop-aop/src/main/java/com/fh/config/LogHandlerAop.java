@@ -2,18 +2,15 @@ package com.fh.config;
 
 import com.alibaba.fastjson.JSON;
 
-import com.fh.aop.entity.TSysLogs;
 import com.fh.aop.service.ITSysLogsService;
-import com.fh.utils.CommonsReturn;
-import com.fh.utils.ReturnCode;
+import com.fh.logs.dao.LogsDao;
+import com.fh.logs.model.Logs;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +18,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * @author 唐吉诃德
@@ -31,12 +27,14 @@ import java.util.TimeZone;
 @Order(3)
 public class LogHandlerAop {
 
-    @Autowired
+    @Resource
     private HttpServletRequest httpServletRequest;
 
     @Resource
     private ITSysLogsService logService;
 
+    @Resource
+    private LogsDao logsDao;
 
     /**
      * 环绕通知
@@ -45,7 +43,10 @@ public class LogHandlerAop {
     public Object aroundAdvice(ProceedingJoinPoint joinPoint, com.fh.config.LogsAnnotation logsAnnotation) throws Throwable {
         Object obj=null;
         String ip=httpServletRequest.getHeader("Authorization-ip");
-        TSysLogs logs = new TSysLogs();
+        //存入mysql
+        //TSysLogs logs = new TSysLogs();
+        //存入mongoDB
+        Logs logs = new Logs();
         //获取当前访问的用户信息
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
@@ -70,7 +71,8 @@ public class LogHandlerAop {
             throw throwable;
         }finally {
             logs.setRuntime(System.currentTimeMillis()-startTime);
-            logService.save(logs);
+            //logService.save(logs);
+            logsDao.insert(logs);
         }
         return obj;
     }

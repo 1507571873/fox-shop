@@ -46,6 +46,34 @@ export default {
             }
             this.tagsList = arr;
         });
-    }
+    },
+    methods:{
+      websocket () {
+        let self=this;
+        let token= localStorage.getItem("token")
+        let ws= new WebSocket('ws://localhost:9080/websocket',[token]);
+
+        ws.onopen = () => {
+
+        }
+        ws.onmessage = evt => {
+          self.$notify({
+            title: '自定义位置',
+            dangerouslyUseHTMLString: true,
+            position: 'bottom-right',
+            message: '<strong>'+evt.data+'</strong>'
+          });
+        }
+        ws.onclose = function () {
+        }
+        // 路由跳转时结束websocket链接
+        this.$router.afterEach(function () {
+          ws.close()
+        })
+      }
+    },
+  mounted(){
+      this.websocket();
+  }
 };
 </script>

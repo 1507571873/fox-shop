@@ -46,6 +46,7 @@ public class PmsProductAttributeCategoryController {
      * @return CommonsReturn
      */
     @PostMapping
+    @LogsAnnotation("产品属性分类 新增or修改的方法")
     public CommonsReturn saveOrUpdateCategory(PmsProductAttributeCategory pmsProductAttributeCategory){
         pmsProductAttributeCategoryService.saveOrUpdate(pmsProductAttributeCategory);
         return CommonsReturn.success();
@@ -57,6 +58,7 @@ public class PmsProductAttributeCategoryController {
      * @return CommonsReturn
      */
     @GetMapping("/ById")
+    @LogsAnnotation("产品属性分类 修改的回显方法 根据唯一标识Id进行查询")
     public CommonsReturn queryCategoryDataById(Integer id){
         PmsProductAttributeCategory data = pmsProductAttributeCategoryService.getById(id);
         return CommonsReturn.success(data);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +45,7 @@ public class PmsBrandController {
      * @return CommonsReturn
      */
     @GetMapping("/All")
+    @LogsAnnotation("品牌表 查询 全部数据 用于商品维护里的form表单的商品品牌的下拉框")
     public CommonsReturn queryBrandAll(){
         List<PmsBrand> list = brandService.list();
         return CommonsReturn.success(list);
@@ -56,6 +58,7 @@ public class PmsBrandController {
      */
     @DeleteMapping
     @ApiOperation("商品管理 根据id进行删除")
+    @LogsAnnotation("商品管理 根据id进行删除")
     public CommonsReturn deleteBrandData(Long id){
         brandService.removeById(id);
         return CommonsReturn.success();
@@ -67,6 +70,7 @@ public class PmsBrandController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("品牌表 新增or修改")
     public CommonsReturn saveBrandData(PmsBrand pmsBrand){
         brandService.saveOrUpdate(pmsBrand);
         return CommonsReturn.success();
@@ -84,4 +88,14 @@ public class PmsBrandController {
         return CommonsReturn.success(brand);
     }
 
+    /**
+     * 品牌柱状图
+     * @return CommonsReturn
+     */
+    @GetMapping("/BrandName")
+    @LogsAnnotation("品牌柱状图")
+    public CommonsReturn queryBrandName(){
+        List<Map<String, Object>> list = brandService.queryBrandName();
+        return CommonsReturn.success(list);
+    }
 }

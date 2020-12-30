@@ -4,6 +4,7 @@ package com.fh.product.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import com.fh.config.LogsAnnotation;
 import com.fh.product.entity.PmsProduct;
 import com.fh.product.entity.PmsProductBO;
 import com.fh.product.service.IPmsProductService;
@@ -46,6 +47,7 @@ public class PmsProductController {
      * @return CommonsReturn
      */
     @PostMapping
+    @LogsAnnotation("商品信息 商品维护新增")
     public CommonsReturn saveOrUpdateProductData(@RequestBody PmsProductBO pmsProductBO){
         pmsProductService.createProduct(pmsProductBO);
         return CommonsReturn.success();
@@ -57,6 +59,7 @@ public class PmsProductController {
      * @return CommonsReturn
      */
     @GetMapping("/ById")
+    @LogsAnnotation("商品信息 回显数据")
     public CommonsReturn queryProductById(Long id){
         PmsProductBO pmsProductBO = pmsProductService.queryProductById(id);
         return CommonsReturn.success(pmsProductBO);

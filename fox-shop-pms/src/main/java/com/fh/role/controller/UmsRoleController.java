@@ -4,6 +4,7 @@ package com.fh.role.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fh.config.LogsAnnotation;
 import com.fh.role.entity.UmsRole;
 import com.fh.role.service.IUmsRoleService;
 import com.fh.utils.CommonsReturn;
@@ -31,7 +32,7 @@ public class UmsRoleController {
     /**
      * 查询 分页查询 条件查询
      * @param page
-     * @param seachName
+     * @param keyword
      * @return CommonsReturn
      */
     @GetMapping
@@ -48,6 +49,7 @@ public class UmsRoleController {
      * @return CommonsReturn
      */
     @PostMapping
+    @LogsAnnotation("后台用户角色表 新增修改")
     public CommonsReturn saveOrUpdate(UmsRole umsRole){
         if (umsRole.getId()==null){
             umsRole.setCreateTime(new Date());
@@ -62,6 +64,7 @@ public class UmsRoleController {
      * @return CommonsReturn
      */
     @GetMapping("/ById")
+    @LogsAnnotation("后台用户角色表 根据唯一标识Id查询")
     public CommonsReturn queryRoleById(Integer id){
         UmsRole role = roleService.getById(id);
         return CommonsReturn.success(role);
@@ -72,6 +75,7 @@ public class UmsRoleController {
      * @return CommonsReturn
      */
     @GetMapping("/All")
+    @LogsAnnotation("后台用户角色表 查询所有 用户赋角色的下拉框")
     public CommonsReturn queryRoleAll(){
         List<UmsRole> list = roleService.list();
         return CommonsReturn.success(list);
@@ -83,6 +87,7 @@ public class UmsRoleController {
      * @return
      */
     @DeleteMapping
+    @LogsAnnotation("后台用户角色表 删除角色")
     public CommonsReturn deleteRoll(Integer id){
         roleService.removeById(id);
         return CommonsReturn.success();

@@ -78,7 +78,6 @@ export default {
       queryMenuByName().then(result=>{
         if (result.code===200){
           this.items=result.data;
-          debugger
         }
       })
     }

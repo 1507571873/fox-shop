@@ -13,6 +13,8 @@ import 'babel-polyfill';
 import axios from 'axios';
 Vue.prototype.$http = axios
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);

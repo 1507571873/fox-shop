@@ -2,6 +2,7 @@ package com.fh.userOrRole.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fh.config.LogsAnnotation;
 import com.fh.userOrRole.entity.UmsAdminRoleBo;
 import com.fh.userOrRole.entity.UmsAdminRoleRelation;
 import com.fh.userOrRole.service.IUmsAdminRoleRelationService;
@@ -32,6 +33,7 @@ public class UmsAdminRoleRelationController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("后台用户和角色关系表 用户赋角色保存")
     public CommonsReturn saveUserOrRole(@RequestBody UmsAdminRoleBo umsAdminRoleBo){
         QueryWrapper<UmsAdminRoleRelation> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("admin_id",umsAdminRoleBo.getAdminId());
@@ -46,6 +48,7 @@ public class UmsAdminRoleRelationController {
      * @return
      */
     @GetMapping("/ById")
+    @LogsAnnotation("后台用户和角色关系表 用户赋角色回显")
     public CommonsReturn queryUserOrRole(Integer adminId){
         QueryWrapper<UmsAdminRoleRelation> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("admin_id",adminId);

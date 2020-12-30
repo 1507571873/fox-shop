@@ -4,6 +4,7 @@ package com.fh.resource.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fh.config.LogsAnnotation;
 import com.fh.resource.entity.ResourceBo;
 import com.fh.resource.entity.UmsResource;
 import com.fh.resource.service.IUmsResourceService;
@@ -58,6 +59,7 @@ public class UmsResourceController {
      * @return
      */
     @PostMapping
+    @LogsAnnotation("后台资源表 新增修改保存")
     public CommonsReturn saveOrUpdateResource(UmsResource umsResource){
         if (umsResource.getId()==null){
             umsResource.setCreateTime(new Date());
@@ -72,6 +74,7 @@ public class UmsResourceController {
      * @return
      */
     @GetMapping("/ById")
+    @LogsAnnotation("后台资源表 回显 根据唯一标识Id查询")
     public CommonsReturn queryResourceById(Integer id){
         UmsResource resource = resourceService.getById(id);
         return CommonsReturn.success(resource);
@@ -83,6 +86,7 @@ public class UmsResourceController {
      * @return
      */
     @DeleteMapping
+    @LogsAnnotation("后台资源表 删除")
     public CommonsReturn deleteById(Integer id){
         resourceService.removeById(id);
         return CommonsReturn.success();
@@ -93,6 +97,7 @@ public class UmsResourceController {
      * @return
      */
     @GetMapping("/All")
+    @LogsAnnotation("后台资源表 给用户赋予资源 查询全部")
     public CommonsReturn queryResourceAll(){
         List<UmsResource> list = resourceService.list();
         return CommonsReturn.success(list);

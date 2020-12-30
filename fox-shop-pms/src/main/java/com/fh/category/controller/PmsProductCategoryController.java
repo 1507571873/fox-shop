@@ -111,6 +111,7 @@ public class PmsProductCategoryController {
      * @return CommonsReturn
      */
     @GetMapping("All")
+    @LogsAnnotation("商品分类 查询 商品分类 用于商品维护中的form表单 里的商品信息的下拉框")
     public CommonsReturn queryParentCategoryAll(){
         List<Map<String,Object>> list =categoryService.queryParentCategoryAll();
         return CommonsReturn.success(list);

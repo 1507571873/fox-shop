@@ -42,6 +42,13 @@ export const queryDataById = (Data,Path) => {
         }
     });
 };
+//只查询品牌名称
+export const queryBrandName = () => {
+    return request({
+        url: "/fox-shop-admin/pms/brand/BrandName",
+        method: 'get',
+    });
+};
 //退出登录
 export const loginOut = () => {
     return request({

@@ -41,7 +41,7 @@ public class UmsMenuServiceImpl extends ServiceImpl<UmsMenuMapper, UmsMenu> impl
                 map=new HashMap<>();
                 map.put("id",umsMenu.getId());
                 map.put("label",umsMenu.getTitle());
-                if (umsMenu.getLevel()==0){
+                if (umsMenu.getParentId()==0){
                     map.put("children",getMenuTreeList(listMenu,umsMenu.getId()));
                 }
             }

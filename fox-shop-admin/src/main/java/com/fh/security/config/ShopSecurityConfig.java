@@ -71,7 +71,7 @@ public class ShopSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/LoginController/**","/UploadPhoto").permitAll()
+                .antMatchers("/LoginController/**","/UploadPhoto","/websocket").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
         //禁用缓存      后续用redis
